@@ -1,0 +1,13 @@
+{
+  "domain": "delonghi_ddsx",
+  "name": "De'Longhi DDSX extras",
+  "codeowners": ["@davidteles"],
+  "config_flow": true,
+  "dependencies": ["homekit_controller"],
+  "documentation": "https://github.com/davidteles/ha-delonghi-ddsx",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/davidteles/ha-delonghi-ddsx/issues",
+  "requirements": [],
+  "version": "0.3.0"
+}
