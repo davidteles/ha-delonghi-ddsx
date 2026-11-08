@@ -1,0 +1,42 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Choose your De'Longhi DDSX",
+        "data": { "hk_entry_id": "Dehumidifier" }
+      }
+    },
+    "abort": {
+      "no_device": "No De'Longhi DDSX found. Pair it with the HomeKit Controller integration first.",
+      "already_configured": "This dehumidifier is already set up."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "alarm": { "name": "Alarm" },
+      "water_tank": { "name": "Water tank" }
+    },
+    "select": {
+      "mode": {
+        "name": "Mode",
+        "state": { "dehumidify": "Dehumidify", "purify": "Purify only", "off": "Off" }
+      }
+    },
+    "sensor": {
+      "alarm_code": { "name": "Alarm code" },
+      "current_mode": {
+        "name": "Current mode",
+        "state": { "dehumidify": "Dehumidify", "purify": "Purify only", "unknown": "Unknown" }
+      },
+      "real_feel_colour": { "name": "Real Feel colour" },
+      "resources": { "name": "Resources" },
+      "mould_prediction": { "name": "Mould prediction" }
+    },
+    "switch": {
+      "eco_mode": { "name": "Eco mode" },
+      "laundry_mode": { "name": "Laundry mode" },
+      "real_feel": { "name": "Real Feel" },
+      "louver_swing": { "name": "Louver swing" }
+    }
+  }
+}
