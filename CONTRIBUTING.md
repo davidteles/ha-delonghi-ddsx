@@ -3,6 +3,7 @@
 ## Branching strategy (GitHub flow)
 
 - **`main` is protected and always releasable.** Nothing is pushed to it directly. Every change arrives as a pull request.
+  While the repository is private this is a convention (GitHub's free plan has no branch protection for private repositories). When it goes public, a ruleset enforces it: no direct pushes, no force-pushes or deletion, and pull requests need the code owner's approval.
 - Work happens on short-lived branches, named by type:
 
   | Prefix | For |
