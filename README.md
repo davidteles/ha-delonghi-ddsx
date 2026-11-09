@@ -1,3 +1,5 @@
+<p align="center"><img src="https://raw.githubusercontent.com/davidteles/ha-delonghi-ddsx/main/docs/images/icon.png" alt="A blue dehumidifier with a water drop" width="160"></p>
+
 # De'Longhi DDSX extras for Home Assistant
 
 Unlock the hidden features of De'Longhi **DDSX** dehumidifiers (Tasciugo AriaDry Multi, e.g. DDSX220WF) in Home Assistant: **eco mode, laundry mode, a proper Dehumidify / Purify-only / Off mode, louver swing and a real water-tank alarm**. Fully local, through the HomeKit pairing you already have.
