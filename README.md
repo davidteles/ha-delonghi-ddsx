@@ -3,7 +3,7 @@
 Unlock the hidden features of De'Longhi **DDSX** dehumidifiers (Tasciugo AriaDry Multi, e.g. DDSX220WF) in Home Assistant: **eco mode, laundry mode, a proper Dehumidify / Purify-only / Off mode, louver swing and a real water-tank alarm**. Fully local, through the HomeKit pairing you already have.
 
 [![Validate](https://github.com/davidteles/ha-delonghi-ddsx/actions/workflows/validate.yml/badge.svg)](https://github.com/davidteles/ha-delonghi-ddsx/actions/workflows/validate.yml)
-![Version](https://img.shields.io/badge/version-0.3.0-blue)
+![Version](https://img.shields.io/badge/version-0.3.1-blue)
 ![IoT class](https://img.shields.io/badge/IoT-local%20polling-brightgreen)
 
 ---
@@ -35,7 +35,7 @@ All entities appear on the dehumidifier's existing device, next to the ones Home
 | **Water tank** | binary sensor | **On** when the tank is full or not in place, so the unit has stopped drying |
 | **Alarm** | binary sensor | On for any alarm the unit reports |
 | **Alarm code** | sensor | The raw alarm code, with the bits set and a `water_tank` attribute |
-| **Current mode** | sensor (diagnostic) | `dehumidify` / `purify` as reported by the unit |
+| **Current mode** | sensor (diagnostic) | `dehumidify` / `laundry` (clothes drying) / `purify`, as reported by the unit |
 | **Real Feel colour** | sensor | The Real Feel indicator colour (0–2) and the raw Real Feel data |
 | **Mould prediction** | sensor (diagnostic) | Raw mould-prediction data (hex); its meaning isn't decoded yet |
 | **Resources** | sensor (diagnostic) | Raw value reported by the unit |
@@ -149,6 +149,8 @@ After the move to Home Assistant, you can share the unit back to Apple Home with
 
 - **Polling** every 30 seconds. Changes you make in Home Assistant show immediately; changes made on the unit's buttons show within 30 seconds.
 - **Not decoded yet:** the humidity history, the timer program and the meaning of the mould-prediction bytes.
+- **Timers aren't supported.** If a timer or delayed start is set on the unit (clock or calendar icon on its display), it can stay on but idle. Switching it off and on from Home Assistant doesn't clear that: press the clock button on the unit.
+- After switching **Real Feel** off, HomeKit Controller may show the dehumidifier in *auto* mode. Set it back to *normal* on the dehumidifier entity if it doesn't dry.
 - **Not available:** firmware updates and the filter reset. Use De'Longhi's app while the unit is paired natively.
 - The entities are moved onto HomeKit Controller's device so everything stays together. If you remove HomeKit Controller's entry, remove this one too.
 

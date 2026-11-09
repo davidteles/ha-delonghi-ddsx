@@ -11,7 +11,7 @@ LAUNDRY = "50233326"  # bool, read/write
 ECO = "CAF353CE"  # bool, read/write
 MOLD = "925DE44D"  # data, read
 REAL_FEEL_ON = "CE88A1DC"  # uint8 0/1, read/write
-CURRENT_MODE = "416FF0AE"  # uint8, read: 1 = dehumidify, 3 = purify only
+CURRENT_MODE = "416FF0AE"  # uint8, read: 1 = dehumidify, 2 = clothes drying, 3 = purify only
 REAL_FEEL = "E1672A87"  # data, read
 REAL_FEEL_COLOR = "85E82A99"  # uint8 0..2, read
 ALARMS = "20CF101A"  # uint8 alarm code, read: 3 = water tank full or missing
@@ -28,5 +28,5 @@ DEHUM_ACTIVE = "dehumidifier_active"
 DEHUM_SWING = "dehumidifier_swing"
 PURIFIER_ACTIVE = "purifier_active"
 
-MODE_NAMES = {1: "dehumidify", 3: "purify"}
+MODE_NAMES = {1: "dehumidify", 2: "laundry", 3: "purify"}
 TANK_ALARM_CODE = 3

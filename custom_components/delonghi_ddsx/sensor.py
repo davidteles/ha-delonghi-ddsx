@@ -59,7 +59,7 @@ class DDSXAlarmCode(DDSXRawNumber):
 
 class DDSXCurrentMode(DDSXEntity, SensorEntity):
     _attr_device_class = SensorDeviceClass.ENUM
-    _attr_options = ["dehumidify", "purify", "unknown"]
+    _attr_options = ["dehumidify", "laundry", "purify", "unknown"]
     _attr_entity_category = EntityCategory.DIAGNOSTIC
 
     @property
