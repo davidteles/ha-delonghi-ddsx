@@ -81,11 +81,13 @@ class DDSXCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self.hk_entry_id = hk_entry_id
         self.chars = chars
         self.device_id: str | None = None
+        self.device_name = "De'Longhi DDSX"
         dev_reg = dr.async_get(hass)
         aids = {aid for aid, _ in chars.values()}
         for device in dr.async_entries_for_config_entry(dev_reg, hk_entry_id):
             if any(str(ident[1]).endswith(f":aid:{aid}") for ident in device.identifiers for aid in aids):
                 self.device_id = device.id
+                self.device_name = device.name_by_user or device.name or self.device_name
                 break
 
     def _conn(self) -> Any:

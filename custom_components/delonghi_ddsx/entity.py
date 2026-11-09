@@ -5,6 +5,7 @@ from typing import Any
 
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.util import slugify
 
 from . import DDSXCoordinator
 
@@ -17,6 +18,11 @@ class DDSXEntity(CoordinatorEntity[DDSXCoordinator]):
         self._key = key
         self._attr_translation_key = translation_key
         self._attr_unique_id = f"{coordinator.hk_entry_id}_{translation_key}"
+        # The entities only join the unit's device after they are added, so ask for
+        # an entity id that starts with the device's name ("switch.dehumidifier_eco_mode"),
+        # not a bare "switch.eco_mode". The platform is this module's name (switch, sensor…).
+        platform = type(self).__module__.rsplit(".", 1)[-1]
+        self.entity_id = f"{platform}.{slugify(coordinator.device_name)}_{translation_key}"
 
     async def async_added_to_hass(self) -> None:
         await super().async_added_to_hass()
