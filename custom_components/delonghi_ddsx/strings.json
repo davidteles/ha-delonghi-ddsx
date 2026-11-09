@@ -26,7 +26,7 @@
       "alarm_code": { "name": "Alarm code" },
       "current_mode": {
         "name": "Current mode",
-        "state": { "dehumidify": "Dehumidify", "purify": "Purify only", "unknown": "Unknown" }
+        "state": { "dehumidify": "Dehumidify", "laundry": "Clothes drying", "purify": "Purify only", "unknown": "Unknown" }
       },
       "real_feel_colour": { "name": "Real Feel colour" },
       "resources": { "name": "Resources" },
