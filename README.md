@@ -5,7 +5,7 @@
 Unlock the hidden features of De'Longhi **DDSX** dehumidifiers (Tasciugo AriaDry Multi, e.g. DDSX220WF) in Home Assistant: **eco mode, laundry mode, a proper Dehumidify / Purify-only / Off mode, louver swing and a real water-tank alarm**. Fully local, through the HomeKit pairing you already have.
 
 [![Validate](https://github.com/davidteles/ha-delonghi-ddsx/actions/workflows/validate.yml/badge.svg)](https://github.com/davidteles/ha-delonghi-ddsx/actions/workflows/validate.yml)
-![Version](https://img.shields.io/badge/version-0.3.1-blue)
+![Version](https://img.shields.io/badge/version-0.3.2-blue)
 ![IoT class](https://img.shields.io/badge/IoT-local%20polling-brightgreen)
 
 ---
@@ -155,6 +155,7 @@ After the move to Home Assistant, you can share the unit back to Apple Home with
 - After switching **Real Feel** off, HomeKit Controller may show the dehumidifier in *auto* mode. Set it back to *normal* on the dehumidifier entity if it doesn't dry.
 - **Not available:** firmware updates and the filter reset. Use De'Longhi's app while the unit is paired natively.
 - The entities are moved onto HomeKit Controller's device so everything stays together. If you remove HomeKit Controller's entry, remove this one too.
+- The integration's icon ships with it (`brand/`), which needs Home Assistant **2026.3** or newer. Older versions show the generic placeholder.
 
 ## Troubleshooting
 
