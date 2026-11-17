@@ -33,9 +33,11 @@ class DDSXMode(DDSXEntity, SelectEntity):
     async def async_select_option(self, option: str) -> None:
         # Switching the purifier off turns the whole unit off, so to change mode we
         # only ever switch the wanted job on; the unit stops the other one itself.
+        # The other job is only *expected* to stop (shown at once, never written),
+        # so the selector doesn't show the old mode until the next poll.
         if option == DEHUMIDIFY:
-            await self.coordinator.async_write({DEHUM_ACTIVE: 1})
+            await self.coordinator.async_write({DEHUM_ACTIVE: 1}, expect={PURIFIER_ACTIVE: 0})
         elif option == PURIFY:
-            await self.coordinator.async_write({PURIFIER_ACTIVE: 1})
+            await self.coordinator.async_write({PURIFIER_ACTIVE: 1}, expect={DEHUM_ACTIVE: 0})
         else:
             await self.coordinator.async_write({DEHUM_ACTIVE: 0, PURIFIER_ACTIVE: 0})
