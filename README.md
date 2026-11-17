@@ -5,8 +5,16 @@
 Unlock the hidden features of De'Longhi **DDSX** dehumidifiers (Tasciugo AriaDry Multi, e.g. DDSX220WF) in Home Assistant: **eco mode, laundry mode, a proper Dehumidify / Purify-only / Off mode, louver swing and a real water-tank alarm**. Fully local, through the HomeKit pairing you already have.
 
 [![Validate](https://github.com/davidteles/ha-delonghi-ddsx/actions/workflows/validate.yml/badge.svg)](https://github.com/davidteles/ha-delonghi-ddsx/actions/workflows/validate.yml)
-![Version](https://img.shields.io/badge/version-0.3.3-blue)
+![Version](https://img.shields.io/badge/version-0.3.4-blue)
 ![IoT class](https://img.shields.io/badge/IoT-local%20polling-brightgreen)
+
+| Tested | Model | Firmware | Home Assistant |
+|---|---|---|---|
+| ✅ On a real unit, in daily use | DDSX220WF | 1.0.8 | 2026.11.2 |
+| ✅ Automated tests with a fake unit, on every change | (simulated) | | 2026.2 |
+| ❔ Not yet tested | Other DDSX models or firmware | | Reports welcome: [open an issue](https://github.com/davidteles/ha-delonghi-ddsx/issues) |
+
+> **Before you install:** a HomeKit Wi-Fi accessory pairs with **one** controller only. If the unit is in Apple Home, remove it there first and pair it with Home Assistant's HomeKit Controller. You can share it back to Apple Home afterwards ([how](#apple-home)).
 
 ---
 
@@ -77,6 +85,15 @@ Learned from a real unit. This is why the **Mode** select is the recommended con
 - The unit does **one job at a time**. Switching the purifier on makes the unit stop dehumidifying by itself.
 - **Switching the purifier off turns the whole unit off** (after about 20 seconds), even if you just asked it to dehumidify.
 - So **Mode** only ever switches the *wanted* job on and lets the unit stop the other one. `Off` switches both off.
+
+| You choose | What Home Assistant sends | What the unit does |
+|---|---|---|
+| **Purify only** (while dehumidifying) | purifier **on** | stops dehumidifying by itself |
+| **Dehumidify** (while purifying) | dehumidifier **on** | stops purifying by itself and **keeps running** |
+| **Off** | both **off** | turns off |
+| *(never sent by Mode)* | purifier **off** while dehumidifying | turns the **whole unit off** about 20 s later |
+
+The new mode shows straight away; the next poll (within 30 s) confirms what the unit really did. These transitions are covered by [automated tests](tests/test_unit.py) against a fake unit; the 20-second shutdown itself can only be seen on a real one (see the [on-device checklist](CONTRIBUTING.md#on-device-checklist)).
 
 ## Alarm codes
 
@@ -167,6 +184,8 @@ After the move to Home Assistant, you can share the unit back to Apple Home with
 | An alarm code isn't in the table | Open an issue with the code. It helps everyone. |
 
 ## Contributing
+
+Run the tests with Python 3.13: `pip install -r requirements_test.txt && pytest`. They use a fake unit that behaves like the real one, and check exactly what is sent to it. Changes to the mode or alarm code should also go through the [on-device checklist](CONTRIBUTING.md#on-device-checklist).
 
 Tested on a **DDSX220WF** (firmware 1.0.8). Reports from other DDSX models and firmware are very welcome: open an issue with the model, the firmware (shown on HomeKit Controller's device page) and what worked. Pull requests are welcome too.
 

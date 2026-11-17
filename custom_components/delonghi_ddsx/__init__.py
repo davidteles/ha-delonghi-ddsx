@@ -105,7 +105,9 @@ class DDSXCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             raise UpdateFailed(f"Reading the unit failed: {err}") from err
         return {by_address[address]: value["value"] for address, value in result.items() if address in by_address and isinstance(value, dict) and "value" in value}
 
-    async def async_write(self, values: dict[str, Any]) -> None:
+    async def async_write(self, values: dict[str, Any], expect: dict[str, Any] | None = None) -> None:
+        """Write values to the unit. `expect` holds what the unit changes by itself
+        as a result (shown at once, never written); the next poll confirms both."""
         conn = find_connection(self.hass, self.hk_entry_id)
         if conn is None:
             raise HomeAssistantError("The unit is not connected")
@@ -115,7 +117,7 @@ class DDSXCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         except Exception as err:  # noqa: BLE001
             raise HomeAssistantError(f"Writing to the unit failed: {err}") from err
         # Show the new value straight away; the next poll confirms it.
-        self.async_set_updated_data({**(self.data or {}), **values})
+        self.async_set_updated_data({**(self.data or {}), **(expect or {}), **values})
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: DDSXConfigEntry) -> bool:
