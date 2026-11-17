@@ -10,7 +10,7 @@ Unlock the hidden features of De'Longhi **DDSX** dehumidifiers (Tasciugo AriaDry
 
 | Tested | Model | Firmware | Home Assistant |
 |---|---|---|---|
-| ✅ On a real unit, in daily use | DDSX220WF | 1.0.8 | 2026.11.2 |
+| ✅ On a real unit, in daily use; full [on-device checklist](CONTRIBUTING.md#on-device-checklist) passed 17 Nov 2026 | DDSX220WF | 1.0.8 | 2026.11.2 |
 | ✅ Automated tests with a fake unit, on every change | (simulated) | | 2026.2 |
 | ❔ Not yet tested | Other DDSX models or firmware | | Reports welcome: [open an issue](https://github.com/davidteles/ha-delonghi-ddsx/issues) |
 
@@ -85,6 +85,8 @@ Learned from a real unit. This is why the **Mode** select is the recommended con
 - The unit does **one job at a time**. Switching the purifier on makes the unit stop dehumidifying by itself.
 - **Switching the purifier off turns the whole unit off** (after about 20 seconds), even if you just asked it to dehumidify.
 - So **Mode** only ever switches the *wanted* job on and lets the unit stop the other one. `Off` switches both off.
+- **After a power cut the unit comes back switched off** (the job it was doing isn't resumed). Mode shows `Off` within 30 s of the unit reconnecting; switch it back on, or use an automation if you want it to resume by itself.
+- With the **tank out**, the unit stops and Mode shows `Off` until the tank is back; then it resumes the job by itself.
 
 | You choose | What Home Assistant sends | What the unit does |
 |---|---|---|
