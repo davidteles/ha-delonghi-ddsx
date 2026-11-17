@@ -42,4 +42,6 @@ A fake unit can't show the real 20-second shutdown or a real HomeKit session. Be
 2. **Purify only → Dehumidify:** wait **60 s**; the unit is still **on** and dehumidifying.
 3. **Off:** the unit turns off; Mode shows *Off* after the next poll.
 4. **Tank out:** *Water tank* turns on within 30 s; **tank back:** it turns off and the unit resumes.
-5. **Connection:** unplug the unit for a minute; entities go unavailable, then come back by themselves.
+5. **Connection:** unplug the unit for a minute; entities go unavailable, then come back by themselves. The unit restarts **off** after a power cut; that's the unit, not the integration.
+
+Last full run: 17 Nov 2026, DDSX220WF firmware 1.0.8, Home Assistant 2026.11.2, integration 0.3.4. All five passed: the tank alarm showed within one poll (~30 s) and cleared when the tank went back; the entities went unavailable when unplugged and came back by themselves.
