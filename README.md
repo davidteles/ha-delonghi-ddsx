@@ -185,11 +185,20 @@ After the move to Home Assistant, you can share the unit back to Apple Home with
 | Entities unavailable | The unit is offline, or HomeKit Controller lost it. Reload HomeKit Controller's entry. |
 | An alarm code isn't in the table | Open an issue with the code. It helps everyone. |
 
+## How it works (and what it assumes)
+
+- It reuses **HomeKit Controller's** live connection to the unit (its config entry's runtime data) and never pairs a second time. If HomeKit Controller isn't connected, setup waits and retries.
+- It finds what it needs **by UUID**, not by position: the private De'Longhi service `9B8AA3E7…` and its characteristics, plus the standard dehumidifier (`…BD`) and purifier (`…BB`) services' *Active* and *Swing*. So a firmware that renumbers characteristics still works; one that **renames** them (new UUIDs) would not, and setup says *private service not found*.
+- It polls every **30 s** and writes through the same connection. Eco and Laundry are written as booleans; Real Feel and the louver as 0/1, which is what the unit accepts.
+- Meanings of the private values (modes 1/2/3, alarm code 3 = tank) come from one DDSX220WF on firmware 1.0.8. Other values are shown raw until someone reports what they mean.
+
+The long-term plan is to upstream this into HomeKit Controller. That is a separate milestone: fixes here don't wait for it.
+
 ## Contributing
 
 Run the tests with Python 3.13: `pip install -r requirements_test.txt && pytest`. They use a fake unit that behaves like the real one, and check exactly what is sent to it. Changes to the mode or alarm code should also go through the [on-device checklist](CONTRIBUTING.md#on-device-checklist).
 
-Tested on a **DDSX220WF** (firmware 1.0.8). Reports from other DDSX models and firmware are very welcome: open an issue with the model, the firmware (shown on HomeKit Controller's device page) and what worked. Pull requests are welcome too.
+Tested on a **DDSX220WF** (firmware 1.0.8). Reports from other DDSX models and firmware are very welcome: use the **[Works (or not) on my unit](https://github.com/davidteles/ha-delonghi-ddsx/issues/new?template=device_report.yml)** form, even if everything worked. Pull requests are welcome too.
 
 The long-term goal is to add these features to Home Assistant's own HomeKit Controller integration, as was done for other vendors' HomeKit extras. That would make this integration unnecessary.
 

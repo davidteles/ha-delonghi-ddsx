@@ -1,0 +1,43 @@
+name: Works (or not) on my unit
+description: Tell us which model and firmware you tried, even if everything worked
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Reports from other models and firmware are how the **Tested** table in
+        the README grows. Never paste the setup code or serial number.
+  - type: input
+    id: model
+    attributes:
+      label: Model
+      placeholder: DDSX220WF
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Unit firmware
+      placeholder: "1.0.8"
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Integration and Home Assistant versions
+      placeholder: "0.3.4 on 2026.11.2"
+    validations:
+      required: true
+  - type: checkboxes
+    id: works
+    attributes:
+      label: What did you try? (tick what worked)
+      options:
+        - label: Setup found the unit and added the extra entities
+        - label: Dehumidify → Purify only, and back to Dehumidify (still running a minute later)
+        - label: "Off"
+        - label: Water tank alarm on with the tank out, off when it's back
+        - label: Eco / Laundry switches
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything different from the README?

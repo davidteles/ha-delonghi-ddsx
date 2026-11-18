@@ -2,10 +2,64 @@ name: Bug report
 description: Something doesn't work as described
 labels: [bug]
 body:
+  - type: markdown
+    attributes:
+      value: >-
+        Thanks! The model, firmware and versions below matter most: this
+        integration talks to a private part of the unit's HomeKit service, which
+        can differ between models and firmware. **Never paste the HomeKit setup
+        code, serial number, passwords or tokens.**
+  - type: input
+    id: model
+    attributes:
+      label: Model
+      description: From the label on the back, e.g. DDSX220WF.
+      placeholder: DDSX220WF
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Unit firmware
+      description: Settings → Devices & services → HomeKit Controller → your dehumidifier → "Firmware".
+      placeholder: "1.0.8"
+    validations:
+      required: true
+  - type: input
+    id: integration_version
+    attributes:
+      label: Integration version
+      description: HACS → De'Longhi DDSX extras, or the version in manifest.json.
+      placeholder: "0.3.4"
+    validations:
+      required: true
+  - type: input
+    id: ha_version
+    attributes:
+      label: Home Assistant version
+      description: Settings → About.
+      placeholder: "2026.11.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: What is it about?
+      options:
+        - Mode (Dehumidify / Purify / Off)
+        - Water tank or another alarm
+        - Eco, Laundry, Real Feel or louver switches
+        - Sensors (current mode, colour, mould, resources)
+        - Setup (it doesn't find the unit, keeps retrying)
+        - Entities unavailable
+        - Something else
+    validations:
+      required: true
   - type: textarea
     id: what
     attributes:
       label: What happened, and what did you expect?
+      description: For a mode problem, say what you chose, what the unit did, and what the unit's own display or the De'Longhi app showed. For an alarm, the **Alarm code** sensor's value.
     validations:
       required: true
   - type: textarea
@@ -13,16 +67,12 @@ body:
     attributes:
       label: How to reproduce
       placeholder: "1. …\n2. …"
-  - type: input
-    id: ha_version
-    attributes:
-      label: Home Assistant version
-      placeholder: "2026.11.1"
-    validations:
-      required: true
   - type: textarea
-    id: logs
+    id: diagnostics
     attributes:
-      label: Logs or configuration
-      description: Remove passwords, tokens, codes and personal details first.
-      render: yaml
+      label: Diagnostics or logs (optional)
+      description: >-
+        The HomeKit Controller device's **Download diagnostics** helps most (it
+        lists the unit's services). Remove the setup code, serial number and
+        anything personal first.
+      render: json
