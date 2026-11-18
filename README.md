@@ -194,6 +194,13 @@ After the move to Home Assistant, you can share the unit back to Apple Home with
 
 The long-term plan is to upstream this into HomeKit Controller. That is a separate milestone: fixes here don't wait for it.
 
+## Remove it
+
+1. *Settings → Devices & services → De'Longhi DDSX extras → ⋮ → Delete*. The extra entities (eco, laundry, mode, louver, tank alarm) go away; the dehumidifier keeps working through HomeKit Controller as before.
+2. Uninstall **De'Longhi DDSX extras** in HACS (or delete `custom_components/delonghi_ddsx`) and restart.
+
+Automations that used the extra entities will show them as unavailable: delete or edit those too.
+
 ## Contributing
 
 Run the tests with Python 3.13: `pip install -r requirements_test.txt && pytest`. They use a fake unit that behaves like the real one, and check exactly what is sent to it. Changes to the mode or alarm code should also go through the [on-device checklist](CONTRIBUTING.md#on-device-checklist).
