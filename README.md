@@ -11,7 +11,7 @@ Unlock the hidden features of De'Longhi **DDSX** dehumidifiers (Tasciugo AriaDry
 | Tested | Model | Firmware | Home Assistant |
 |---|---|---|---|
 | ✅ On a real unit, in daily use; full [on-device checklist](CONTRIBUTING.md#on-device-checklist) passed 17 Nov 2026 | DDSX220WF | 1.0.8 | 2026.11.2 |
-| ✅ Automated tests with a fake unit, on every change | (simulated) | | 2026.2 |
+| ✅ Automated tests with a fake unit, on every change (setup, mode changes, alarms, connection loss and recovery, unload) | (simulated) | | 2026.2 and **2025.1.4** (the oldest supported) |
 | ❔ Not yet tested | Other DDSX models or firmware | | Reports welcome: [open an issue](https://github.com/davidteles/ha-delonghi-ddsx/issues) |
 
 > **Before you install:** a HomeKit Wi-Fi accessory pairs with **one** controller only. If the unit is in Apple Home, remove it there first and pair it with Home Assistant's HomeKit Controller. You can share it back to Apple Home afterwards ([how](#apple-home)).
@@ -52,7 +52,7 @@ All entities appear on the dehumidifier's existing device, next to the ones Home
 
 ## Requirements
 
-- Home Assistant **2025.1** or newer.
+- Home Assistant **2025.1** or newer. 2025.1 is covered by the automated tests with a simulated unit (including how older versions keep the HomeKit connection); a real unit has only run on 2026.11.
 - A De'Longhi **DDSX** dehumidifier with HomeKit (Wi-Fi), **paired with Home Assistant's HomeKit Controller integration**.
 
 > **One controller at a time.** HomeKit Wi-Fi accessories can only be paired with one controller. If your unit is in Apple Home today, you have to remove it there first. You can then share it back to Apple Home through Home Assistant's HomeKit Bridge (see [Apple Home](#apple-home)).
