@@ -127,3 +127,30 @@ async def test_switches_write_the_type_the_unit_expects(hass, connection, setup_
     assert (AID, IID[(PRIVATE_UUID, ECO)], True) in connection.pairing.writes
     assert (AID, IID[(PRIVATE_UUID, REAL_FEEL_ON)], 1) in connection.pairing.writes
     assert hass.states.get("switch.dehumidifier_eco_mode").state == STATE_ON
+
+
+async def test_older_home_assistant_without_runtime_data_is_found_too(hass, connection) -> None:
+    """Before HomeKit Controller used entry.runtime_data (e.g. 2025.1), its connections lived in
+    hass.data["homekit_controller-devices"]. The fallback lookup must find the unit there."""
+    from homeassistant.helpers import device_registry as dr
+    from pytest_homeassistant_custom_component.common import MockConfigEntry
+
+    from custom_components.delonghi_ddsx.const import CONF_HK_ENTRY, DOMAIN
+
+    hass.config.components.add("homekit_controller")
+    hk_entry = MockConfigEntry(domain="homekit_controller", title="Dehumidifier")
+    hk_entry.add_to_hass(hass)
+    connection.config_entry = hk_entry          # how the old KNOWN_DEVICES entries point back to their entry
+    hass.data["homekit_controller-devices"] = {"00:00:00:00:00:00": connection}
+    dr.async_get(hass).async_get_or_create(
+        config_entry_id=hk_entry.entry_id,
+        identifiers={("homekit_controller", "00:00:00:00:00:00:aid:1")},
+        manufacturer="DeLonghi", model="DDSX 1.2.1", name="Dehumidifier",
+    )
+    entry = MockConfigEntry(domain=DOMAIN, data={CONF_HK_ENTRY: hk_entry.entry_id}, unique_id=hk_entry.entry_id)
+    entry.add_to_hass(hass)
+    await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+    assert entry.state is ConfigEntryState.LOADED
+    assert hass.states.get(MODE).state == "dehumidify"
+    assert await hass.config_entries.async_unload(entry.entry_id)
