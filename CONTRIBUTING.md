@@ -17,7 +17,7 @@
   - Must pass the checks.
   - Must be approved by the code owner (`@davidteles`). Only the owner approves and merges.
   - Are **squash-merged**, so `main` gets one clean commit per PR, titled after the PR. The branch is deleted after merging.
-- **Releases** (integrations and cards) are tagged `vMAJOR.MINOR.PATCH` (semantic versioning) on `main`, with release notes.
+- **Releases** (integrations and cards) are tagged `vMAJOR.MINOR.PATCH` (semantic versioning) on `main`, with release notes. The release PR also adds a short entry at the top of `CHANGELOG.md`, so the tag includes it.
   - Patch: fixes.
   - Minor: new features.
   - Major: anything that breaks existing setups.
